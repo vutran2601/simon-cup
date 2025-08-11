@@ -1,12 +1,17 @@
 "use client";
 import { useState } from "react";
 import { searchStudents, addPointToStudent } from "@/services/students";
+import EditStudentModal from "./EditStudentModal";
+import AddStudentModal from "./AddStudentModal";
 
 export default function SearchSection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const handleSearch = async (value: string) => {
     if (value.trim().length < 2) {
@@ -51,9 +56,45 @@ export default function SearchSection() {
     }
   };
 
+  const handleEditStudent = (student: any) => {
+    setSelectedStudent(student);
+    setIsModalOpen(true);
+  };
+
+  const handleUpdate = () => {
+    handleSearch(searchQuery);
+  };
+
+  const handleAddNewStudent = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleAddSuccess = () => {
+    handleSearch(searchQuery);
+  };
+
   return (
     <div className="card full-width">
-      <div className="card-header">Tìm kiếm và điểm danh</div>
+      <div className="card-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span>Tìm kiếm và điểm danh</span>
+        <button 
+          className="btn btn-primary"
+          style={{
+            padding: "8px 16px",
+            fontSize: "14px",
+            borderRadius: "6px",
+            background: "#7c3aed",
+            color: "white",
+            border: "none",
+            fontWeight: 500,
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+            transition: "background 0.2s"
+          }}
+          onClick={handleAddNewStudent}
+        >
+          Thêm cá nhân mới
+        </button>
+      </div>
       <div className="card-content">
         <div className="search-container">
           <input
@@ -88,9 +129,43 @@ export default function SearchSection() {
                       Giới tính: {s.gender} | Lớp: {s.class} | Đội: {s.team_name} | Điểm: {s.points}
                     </div>
                   </div>
-                  <button className="btn btn-secondary" onClick={() => handleAddPoint(s)}>
-                    Cộng điểm
-                  </button>
+                  <div 
+                  className="action-btn-group"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    marginTop: 4,
+                    marginBottom: 4,
+                    flexWrap: "wrap" // Nếu muốn responsive, hoặc bỏ nếu luôn đủ chỗ
+                  }}>
+                    <button className="btn btn-secondary" style={{
+                      padding: "6px 18px",
+                      fontSize: 15,
+                      borderRadius: 6,
+                      background: "#fff",
+                      color: "#7c3aed",
+                      border: "1.5px solid #7c3aed",
+                      fontWeight: 500,
+                      boxShadow: "none",
+                      transition: "background 0.2s"
+                    }} onClick={() => handleAddPoint(s)}>
+                      Cộng điểm
+                    </button>
+                    <button className="btn btn-edit" style={{
+                      padding: "6px 14px",
+                      fontSize: 14,
+                      borderRadius: 6,
+                      background: "#f5f5f5",
+                      color: "#333",
+                      border: "1px solid #ccc",
+                      fontWeight: 500,
+                      boxShadow: "none",
+                      transition: "background 0.2s"
+                    }} onClick={() => handleEditStudent(s)}>
+                      Sửa
+                    </button>
+                  </div>
                 </li>
               ))
             ) : (
@@ -98,6 +173,20 @@ export default function SearchSection() {
             )}
           </ul>
         )}
+
+        {selectedStudent && (
+          <EditStudentModal
+            student={selectedStudent}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onUpdate={handleUpdate}
+          />
+        )}
+        <AddStudentModal
+          isOpen={isAddModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
+          onAdd={handleAddSuccess}
+        />
       </div>
     </div>
   );

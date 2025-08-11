@@ -32,3 +32,26 @@ export async function addPointToStudent(id: number, newPoints: number) {
   if (error) throw error;
   return data;
 }
+
+export async function updateStudentInfo(id: number, studentData: any) {
+  const { data, error } = await supabase
+    .from("list")
+    .update(studentData)
+    .eq("id", id);
+
+  if (error) throw error;
+  return data;
+}
+
+export async function createStudent(studentData: any) {
+  const { data, error } = await supabase
+    .from("list")
+    .insert([studentData]);
+
+  if (error) throw error;
+  return data;
+}
+
+export async function fetchAllTeams() {
+  return ['Đội 0', 'Đội 1', 'Đội 2', 'Đội 3', 'Đội 4'];
+}
