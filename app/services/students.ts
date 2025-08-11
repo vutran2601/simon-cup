@@ -16,7 +16,7 @@ export async function searchStudents(keyword: string) {
   const { data, error } = await supabase
     .from("list")
     .select("*")
-    .or(`saint_name.ilike.%${keyword}%,name.ilike.%${keyword}%,class.ilike.%${keyword}%,team_name.ilike.%${keyword}%`)
+    .ilike("name", `%${keyword}%`)
     .order("name");
 
   if (error) throw error;
