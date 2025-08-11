@@ -38,48 +38,27 @@ export default function Home() {
   return (
     <>
       <header>
-        <h1 className="header-title">SIMON CUP IV - Tham dự Thánh Lễ</h1>
-        <div style={{
-          position: 'absolute',
-          right: '1rem',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.75rem'
-        }}>
-          {user && (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              color: 'white',
-              fontSize: '0.875rem'
-            }}>
-              <img 
-                src={user.photoURL || '/default-avatar.png'} 
-                alt="User Avatar"
-                style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  border: '2px solid white'
-                }}
-              />
-              <span>{user.displayName || user.email}</span>
-            </div>
-          )}
-          <button 
-            className="btn btn-secondary logout-btn"
-            onClick={handleLogout}
-            style={{
-              padding: '0.5rem 1rem',
-              fontSize: '0.875rem'
-            }}
-          >
-            <i className="fas fa-sign-out-alt"></i>
-            Đăng xuất
-          </button>
+        <div className="header-content">
+          <h1 className="header-title">SIMON CUP IV - Tham dự Thánh Lễ</h1>
+          <div className="header-user-info">
+            {user && (
+              <div className="user-info">
+                <img 
+                  src={user.photoURL || '/default-avatar.png'} 
+                  alt="User Avatar"
+                  className="user-avatar"
+                />
+                <span className="user-name">{user.displayName || user.email}</span>
+              </div>
+            )}
+            <button 
+              className="btn btn-secondary logout-btn"
+              onClick={handleLogout}
+            >
+              <i className="fas fa-sign-out-alt"></i>
+              Đăng xuất
+            </button>
+          </div>
         </div>
       </header>
 
