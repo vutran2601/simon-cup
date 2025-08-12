@@ -12,7 +12,7 @@ const teams = ['Đội 0', 'Đội 1', 'Đội 2', 'Đội 3', 'Đội 4'];
 
 export default function AddStudentModal({ isOpen, onClose, onAdd }: AddStudentModalProps) {
     const [formData, setFormData] = useState({
-        saint_name: '', name: '', gender: '', class: '', team_name: '', points: 0,
+        saint_name: '', name: '', gender: '', class: '', team_name: '', points: 1,
     });
     const [loading, setLoading] = useState(false);
 
@@ -81,9 +81,9 @@ export default function AddStudentModal({ isOpen, onClose, onAdd }: AddStudentMo
                         <div className="edit-form-group">
                             <label>Điểm</label>
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                                <button type="button" className="btn btn-edit" style={{ minWidth: 32, padding: "4px 10px" }} onClick={() => handlePointsChange(-1)} tabIndex={-1}>–</button>
+                                <button type="button" className="btn btn-edit" style={{ width: 28, padding: "4px 10px" }} onClick={() => handlePointsChange(-1)} tabIndex={-1}>–</button>
                                 <input type="number" name="points" value={formData.points} onChange={handleChange} min={0} style={{ width: 70, textAlign: "center" }} required />
-                                <button type="button" className="btn btn-edit" style={{ minWidth: 32, padding: "4px 10px" }} onClick={() => handlePointsChange(1)} tabIndex={-1}>+</button>
+                                <button type="button" className="btn btn-edit" style={{ width: 28, padding: "4px 10px" }} onClick={() => handlePointsChange(1)} tabIndex={-1}>+</button>
                             </div>
                         </div>
                     </div>
