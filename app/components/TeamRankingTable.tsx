@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { fetchTeamRankings } from "@/services/teams";
+import TeamBadge from "./TeamBadge";
 
 export default function TeamRankingTable() {
     const [teamRankings, setTeamRankings] = useState<any[]>([]);
@@ -23,7 +24,9 @@ export default function TeamRankingTable() {
                     <tbody>
                         {teamRankings.map((team, i) => (
                             <tr key={i}>
-                                <td>{team.team_name}</td>
+                                <td>
+                                    <TeamBadge teamName={team.team_name} />
+                                </td>
                                 <td>{team.total_points}</td>
                             </tr>
                         ))}

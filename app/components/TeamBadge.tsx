@@ -49,12 +49,12 @@ export default function TeamBadge({ teamName }: TeamBadgeProps) {
     <span
       style={{
         ...style,
-        padding: '4px 8px',
+        padding: '4px 6px',
         borderRadius: '12px',
         fontSize: '12px',
         fontWeight: 'bold',
         display: 'inline-block',
-        minWidth: '80px',
+        minWidth: '70px',
         textAlign: 'center'
       }}
     >

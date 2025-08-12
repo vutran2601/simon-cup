@@ -33,12 +33,12 @@ export default function GenderBadge({ gender }: GenderBadgeProps) {
         <span
             style={{
                 ...style,
-                padding: '4px 8px',
+                padding: '4px 6px',
                 borderRadius: '12px',
                 fontSize: '12px',
                 fontWeight: 'bold',
                 display: 'inline-block',
-                minWidth: '90px',
+                minWidth: '60px',
                 textAlign: 'center',
             }}
         >
