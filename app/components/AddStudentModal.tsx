@@ -8,32 +8,21 @@ interface AddStudentModalProps {
     onAdd: () => void;
 }
 
+const teams = ['Đội 0', 'Đội 1', 'Đội 2', 'Đội 3', 'Đội 4'];
+
 export default function AddStudentModal({ isOpen, onClose, onAdd }: AddStudentModalProps) {
     const [formData, setFormData] = useState({
-        saint_name: '',
-        name: '',
-        gender: '',
-        class: '',
-        team_name: '',
-        points: 0,
+        saint_name: '', name: '', gender: '', class: '', team_name: '', points: 0,
     });
     const [loading, setLoading] = useState(false);
 
-    const teams = ['Đội 0', 'Đội 1', 'Đội 2', 'Đội 3', 'Đội 4'];
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: name === "points" ? Number(value) : value,
-        }));
+        setFormData(f => ({ ...f, [name]: name === "points" ? +value : value }));
     };
 
     const handlePointsChange = (delta: number) => {
-        setFormData(prev => ({
-            ...prev,
-            points: Math.max(0, (prev.points ?? 0) + delta),
-        }));
+        setFormData(f => ({ ...f, points: Math.max(0, (f.points ?? 0) + delta) }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -43,16 +32,8 @@ export default function AddStudentModal({ isOpen, onClose, onAdd }: AddStudentMo
             await createStudent(formData);
             onAdd();
             onClose();
-            // Reset form
-            setFormData({
-                saint_name: '',
-                name: '',
-                gender: '',
-                class: '',
-                team_name: '',
-                points: 0,
-            });
-        } catch (error) {
+            setFormData({ saint_name: '', name: '', gender: '', class: '', team_name: '', points: 0 });
+        } catch {
             alert('Có lỗi xảy ra khi thêm cá nhân mới!');
         } finally {
             setLoading(false);
@@ -70,106 +51,44 @@ export default function AddStudentModal({ isOpen, onClose, onAdd }: AddStudentMo
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="edit-modal-body">
-                        <div className="edit-form-group">
-                            <label>Tên Thánh</label>
-                            <input
-                                type="text"
-                                name="saint_name"
-                                value={formData.saint_name}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="edit-form-group">
-                            <label>Tên</label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
+                        {[
+                            { label: "Tên Thánh", name: "saint_name", type: "text" },
+                            { label: "Tên", name: "name", type: "text" },
+                            { label: "Lớp", name: "class", type: "text" }
+                        ].map(({ label, name, type }) => (
+                            <div className="edit-form-group" key={name}>
+                                <label>{label}</label>
+                                <input type={type} name={name} value={formData[name as keyof typeof formData]} onChange={handleChange} required />
+                            </div>
+                        ))}
                         <div className="edit-form-group">
                             <label>Giới tính</label>
                             <div className="edit-radio-group">
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="gender"
-                                        value="Nam"
-                                        checked={formData.gender === 'Nam'}
-                                        onChange={handleChange}
-                                    /> Nam
-                                </label>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        name="gender"
-                                        value="Nữ"
-                                        checked={formData.gender === 'Nữ'}
-                                        onChange={handleChange}
-                                    /> Nữ
-                                </label>
+                                {["Nam", "Nữ"].map(g => (
+                                    <label key={g}>
+                                        <input type="radio" name="gender" value={g} checked={formData.gender === g} onChange={handleChange} /> {g}
+                                    </label>
+                                ))}
                             </div>
                         </div>
                         <div className="edit-form-group">
-                            <label>Lớp</label>
-                            <input
-                                type="text"
-                                name="class"
-                                value={formData.class}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="edit-form-group">
                             <label>Đội</label>
-                            <select
-                                name="team_name"
-                                value={formData.team_name}
-                                onChange={handleChange}
-                                required
-                            >
+                            <select name="team_name" value={formData.team_name} onChange={handleChange} required>
                                 <option value="">Chọn đội</option>
-                                {teams.map((team) => (
-                                    <option key={team} value={team}>{team}</option>
-                                ))}
+                                {teams.map(team => <option key={team} value={team}>{team}</option>)}
                             </select>
                         </div>
                         <div className="edit-form-group">
                             <label>Điểm</label>
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                                <button
-                                    type="button"
-                                    className="btn btn-edit"
-                                    style={{ minWidth: 32, padding: "4px 10px" }}
-                                    onClick={() => handlePointsChange(-1)}
-                                    tabIndex={-1}
-                                >–</button>
-                                <input
-                                    type="number"
-                                    name="points"
-                                    value={formData.points}
-                                    onChange={handleChange}
-                                    min={0}
-                                    style={{ width: 70, textAlign: "center" }}
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    className="btn btn-edit"
-                                    style={{ minWidth: 32, padding: "4px 10px" }}
-                                    onClick={() => handlePointsChange(1)}
-                                    tabIndex={-1}
-                                >+</button>
+                                <button type="button" className="btn btn-edit" style={{ minWidth: 32, padding: "4px 10px" }} onClick={() => handlePointsChange(-1)} tabIndex={-1}>–</button>
+                                <input type="number" name="points" value={formData.points} onChange={handleChange} min={0} style={{ width: 70, textAlign: "center" }} required />
+                                <button type="button" className="btn btn-edit" style={{ minWidth: 32, padding: "4px 10px" }} onClick={() => handlePointsChange(1)} tabIndex={-1}>+</button>
                             </div>
                         </div>
                     </div>
                     <div className="edit-modal-footer">
-                        <button type="button" className="btn btn-secondary" onClick={onClose}>
-                            Hủy
-                        </button>
+                        <button type="button" className="btn btn-secondary" onClick={onClose}>Hủy</button>
                         <button type="submit" className="btn btn-primary" disabled={loading}>
                             {loading ? 'Đang thêm...' : 'Thêm cá nhân'}
                         </button>

@@ -52,7 +52,7 @@ export default function Home() {
                             </div>
                         )}
                         <button
-                            className="btn btn-secondary logout-btn"
+                            className="btn logout-btn"
                             onClick={handleLogout}
                         >
                             <i className="fas fa-sign-out-alt"></i>
