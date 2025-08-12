@@ -97,8 +97,8 @@ header {
 }
 
 .logout-btn:hover {
-  background: #ede9fe;
-  color: #7c3aed;
+    background: #ede9fe;
+    color: #7c3aed;
 }
 
 .search-results-container {
@@ -255,9 +255,17 @@ tr:nth-child(even) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 0;
-    border-bottom: 1px solid #eee;
+    padding: 20px;
+    margin: 8px 0;
+    border-radius: 12px;
+    background-color: #fafafa;
+    border: 1px solid #7e57c2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     gap: 16px;
+}
+
+.student-item:not(:last-child) {
+    margin-bottom: 12px;
 }
 
 .student-info {
@@ -482,6 +490,17 @@ tr:nth-child(even) {
     color: #888;
     cursor: pointer;
     line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.edit-modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .edit-modal-body {

@@ -46,7 +46,7 @@ export default function AddStudentModal({ isOpen, onClose, onAdd }: AddStudentMo
         <div className="edit-modal-overlay">
             <div className="edit-modal">
                 <div className="edit-modal-header">
-                    <h2>Thêm cá nhân mới</h2>
+                    <h2>Thêm thiếu nhi mới</h2>
                     <button className="edit-modal-close" onClick={onClose} title="Đóng">&times;</button>
                 </div>
                 <form onSubmit={handleSubmit}>
@@ -88,9 +88,8 @@ export default function AddStudentModal({ isOpen, onClose, onAdd }: AddStudentMo
                         </div>
                     </div>
                     <div className="edit-modal-footer">
-                        <button type="button" className="btn btn-secondary" onClick={onClose}>Hủy</button>
                         <button type="submit" className="btn btn-primary" disabled={loading}>
-                            {loading ? 'Đang thêm...' : 'Thêm cá nhân'}
+                            {loading ? 'Đang lưu...' : 'Lưu'}
                         </button>
                     </div>
                 </form>

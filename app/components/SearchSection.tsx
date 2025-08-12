@@ -35,8 +35,8 @@ export default function SearchSection() {
         <div className="card full-width">
             <div className="card-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span>Tìm kiếm và điểm danh</span>
-                <button className="btn btn-primary" style={{ padding: "8px 16px", fontSize: 14, borderRadius: 6, background: "#7c3aed" }} onClick={() => setIsAddModalOpen(true)}>
-                    Thêm cá nhân mới
+                <button className="logout-btn" style={{ cursor: 'pointer' }} onClick={() => setIsAddModalOpen(true)}>
+                    Tạo mới
                 </button>
             </div>
             <div className="card-content">
