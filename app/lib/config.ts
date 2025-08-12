@@ -1,7 +1,7 @@
 export const CONFIG = {
     AUTHORIZED_EMAILS: [
         'nguyenvutran2601@gmail.com',
-        'Khaminh995@gmail.com',
+        'khaminh995@gmail.com',
     ],
 };
 
