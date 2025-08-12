@@ -3,6 +3,9 @@ import { useState } from "react";
 import { searchStudents, addPointToStudent } from "@/services/students";
 import EditStudentModal from "./EditStudentModal";
 import AddStudentModal from "./AddStudentModal";
+import ClassBadge from "./ClassBadge";
+import TeamBadge from "./TeamBadge";
+import GenderBadge from "./GenderBadge";
 
 export default function SearchSection() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -53,9 +56,13 @@ export default function SearchSection() {
                             <li key={i} className="student-item">
                                 <div className="student-info">
                                     <h3>{`${s.saint_name} ${s.name}`}</h3>
-                                    <div className="student-meta">
-                                        Giới tính: {s.gender} | Lớp: {s.class} | Đội: {s.team_name} |<br />
-                                        Điểm: {s.points}
+                                    <div className="student-meta" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                                        <GenderBadge gender={s.gender} />
+                                        <ClassBadge className={s.class} />
+                                        <TeamBadge teamName={s.team_name} />
+                                        <span style={{ backgroundColor: '#d1fae5', color: '#065f46', padding: '4px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: '600' }}>
+                                            Điểm: {s.points}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="action-btn-group">

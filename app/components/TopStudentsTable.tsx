@@ -1,6 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { fetchTopStudents } from "@/services/students";
+import ClassBadge from "./ClassBadge";
+import TeamBadge from "./TeamBadge";
+import GenderBadge from "./GenderBadge";
 
 export default function TopStudentsTable() {
     const [topStudents, setTopStudents] = useState<any[]>([]);
@@ -29,9 +32,9 @@ export default function TopStudentsTable() {
                             <tr key={i}>
                                 <td>{s.saint_name}</td>
                                 <td>{s.name}</td>
-                                <td>{s.gender}</td>
-                                <td>{s.class}</td>
-                                <td>{s.team_name}</td>
+                                <td><GenderBadge gender={s.gender} /></td>
+                                <td><ClassBadge className={s.class} /></td>
+                                <td><TeamBadge teamName={s.team_name} /></td>
                                 <td>{s.points}</td>
                             </tr>
                         ))}
