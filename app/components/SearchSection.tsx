@@ -6,6 +6,7 @@ import AddStudentModal from "./AddStudentModal";
 import ClassBadge from "./ClassBadge";
 import TeamBadge from "./TeamBadge";
 import GenderBadge from "./GenderBadge";
+import NotificationPopup from "./NotificationPopup";
 
 export default function SearchSection() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -14,6 +15,11 @@ export default function SearchSection() {
     const [selectedStudent, setSelectedStudent] = useState<any>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error'; isOpen: boolean }>({
+        message: '',
+        type: 'success',
+        isOpen: false
+    });
 
     const handleSearch = async (value: string) => {
         if (value.trim().length < 2) return setSearchResults([]);
@@ -25,9 +31,19 @@ export default function SearchSection() {
     const handleAddPoint = async (student: any) => {
         try {
             await addPointToStudent(student.id, (student.points || 0) + 1);
-            alert(`Đã cộng 1 điểm cho ${student.name}`);
+            setNotification({
+                message: `Đã cộng 1 điểm cho ${student.name}`,
+                type: 'success',
+                isOpen: true
+            });
+            // Refresh search results to show updated data including any name changes
+            await handleSearch(searchQuery);
         } catch {
-            alert("Không thể cộng điểm!");
+            setNotification({
+                message: "Không thể cộng điểm!",
+                type: 'error',
+                isOpen: true
+            });
         }
     };
 
@@ -97,6 +113,12 @@ export default function SearchSection() {
                     onAdd={() => handleSearch(searchQuery)}
                 />
             </div>
+            <NotificationPopup 
+                message={notification.message}
+                type={notification.type}
+                isOpen={notification.isOpen}
+                onClose={() => setNotification({ ...notification, isOpen: false })}
+            />
         </div>
     );
 }

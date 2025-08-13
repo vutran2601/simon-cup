@@ -12,6 +12,29 @@ export async function fetchTopStudents(limit = 10) {
     return data || [];
 }
 
+export async function fetchStudentsWithPagination(page: number, limit = 10) {
+    const offset = (page - 1) * limit;
+    const { data, error } = await supabase
+        .from('list')
+        .select('*')
+        .gt('points', 0)
+        .order('points', { ascending: false })
+        .range(offset, offset + limit - 1);
+
+    if (error) throw error;
+    return data || [];
+}
+
+export async function fetchTotalStudentsCount() {
+    const { count, error } = await supabase
+        .from('list')
+        .select('*', { count: 'exact', head: true })
+        .gt('points', 0);
+
+    if (error) throw error;
+    return count || 0;
+}
+
 export async function searchStudents(keyword: string) {
     const { data, error } = await supabase
         .from('list')
