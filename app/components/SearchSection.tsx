@@ -47,6 +47,25 @@ export default function SearchSection() {
         }
     };
 
+    const handleAddPointX3 = async (student: any) => {
+        try {
+            await addPointToStudent(student.id, (student.points || 0) + 3);
+            setNotification({
+                message: `Đã cộng 3 điểm cho ${student.name}`,
+                type: 'success',
+                isOpen: true
+            });
+            // Refresh search results to show updated data including any name changes
+            await handleSearch(searchQuery);
+        } catch {
+            setNotification({
+                message: "Không thể cộng điểm!",
+                type: 'error',
+                isOpen: true
+            });
+        }
+    };
+
     return (
         <div className="card full-width">
             <div className="card-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -85,8 +104,17 @@ export default function SearchSection() {
                                     <button
                                         className="btn btn-secondary"
                                         onClick={() => handleAddPoint(s)}
+                                        disabled
+                                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                                        title="Tạm thời bị khóa"
                                     >
                                         Cộng điểm
+                                    </button>
+                                    <button
+                                        className="btn btn-secondary"
+                                        onClick={() => handleAddPointX3(s)}
+                                    >
+                                        Cộng điểm x3
                                     </button>
                                     <button
                                         className="btn btn-edit"
@@ -113,7 +141,7 @@ export default function SearchSection() {
                     onAdd={() => handleSearch(searchQuery)}
                 />
             </div>
-            <NotificationPopup 
+            <NotificationPopup
                 message={notification.message}
                 type={notification.type}
                 isOpen={notification.isOpen}
