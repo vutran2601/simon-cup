@@ -8,7 +8,7 @@ interface AddStudentModalProps {
     onAdd: () => void;
 }
 
-const teams = ['Đội 0', 'Đội 1', 'Đội 2', 'Đội 3', 'Đội 4'];
+const teams = ['Đội 0', 'Đội 1 - Damas', 'Đội 2 - Gierusalem', 'Đội 3 - Giodan', 'Đội 4 - Tiberia'];
 
 export default function AddStudentModal({ isOpen, onClose, onAdd }: AddStudentModalProps) {
     const [formData, setFormData] = useState({

@@ -85,8 +85,6 @@ export default function SearchSection() {
                                     <button
                                         className="btn btn-secondary"
                                         onClick={() => handleAddPoint(s)}
-                                        style={{ opacity: 0.5, cursor: 'not-allowed' }}
-                                        title="Tạm thời bị khóa"
                                     >
                                         Cộng điểm
                                     </button>

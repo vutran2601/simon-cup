@@ -11,26 +11,26 @@ export default function TeamBadge({ teamName }: TeamBadgeProps) {
     // Bạn có thể thêm hoặc chỉnh sửa màu cho từng đội ở đây
     if (lowerTeam.includes('đội 1')) {
       return {
-        backgroundColor: '#f87171', // đỏ nhạt
+        backgroundColor: '#fbbf24', // 
         color: 'white',
       border: 'none'
       };
     } else if (lowerTeam.includes('đội 2')) {
       return {
-        backgroundColor: '#60a5fa', // xanh dương nhạt
+        backgroundColor: '#34d399',
         color: 'white',
       border: 'none'
       };
     } else if (lowerTeam.includes('đội 3')) {
       return {
-        backgroundColor: '#34d399', // xanh lá nhạt
+        backgroundColor: '#60a5fa',
         color: 'white',
       border: 'none'
       };
     } else if (lowerTeam.includes('đội 4')) {
       return {
-        backgroundColor: '#fbbf24', // vàng nhạt
-        color: '#92400e',
+        backgroundColor: '#92400e', // vàng nhạt
+        color: 'white',
       border: 'none'
       };
     }
